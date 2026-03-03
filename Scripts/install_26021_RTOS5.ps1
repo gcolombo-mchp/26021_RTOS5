@@ -2,7 +2,7 @@
 Write-Host "Installing 26021_RTOS5 MASTERs Class" -ForegroundColor Green
 Write-Host ""
 Write-Host "Checking for Zephyr dependency" -ForegroundColor Green
-Write-Host ""
+Write-Host "" 
 # Check if CMake is installed otherwise it install it
 $cmakePkg = winget list --id Kitware.CMake --exact | Select-String "Kitware.CMake"
 if ($cmakePkg)  {
