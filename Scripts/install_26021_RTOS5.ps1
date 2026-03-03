@@ -157,9 +157,16 @@ if ($backup -eq "Y" -or $backup -eq "y") {
     Write-Host "Copying installation on C:\Backup folder..." -ForegroundColor Green
     $backupFolder = "C:\Backup\26021_RTOS5"
     if (Test-Path $backupFolder) {
-        Write-Host ""
-        Write-Host "Deleting old $backupFolder folder..." -ForegroundColor Green
-        Remove-Item -Recurse -Force $backupFolder
+        Write-Host "Deleting old $backupFolder folder..."
+        $items = Get-ChildItem -Path $backupFolder -Recurse
+        $total = $items.Count
+        for ($i = 0; $i -lt $total; $i++) {
+            if ($i % 100 -eq 0) {
+                $percent = ($i / $total) * 100
+                Write-Progress -Activity "Removing $backupFolder..." -PercentComplete $percent
+            }
+            $items[$i].Delete()
+        }
     }
     robocopy $mastersFolder $backupFolder /E /Z /MT:8
 }
