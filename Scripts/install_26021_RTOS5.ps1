@@ -85,10 +85,20 @@ if ($7zipPkg)  {
 Write-Host ""
 # Check if C:\MASTERs\26021_RTOS5 is exist and if it exists, it deletes it, creating an empty one
 $mastersFolder = "C:\MASTERs\26021_RTOS5"
-Write-Host "Create $mastersFolder folder..."
+Write-Host "Create $mastersFolder folder..." -ForegroundColor Green
 if (Test-Path $mastersFolder) {
-    Write-Host "Deleting old $mastersFolder folder..." -ForegroundColor Green
-    Remove-Item -Recurse -Force $mastersFolder
+    Write-Host "Deleting old $mastersFolder folder..."
+    $items = Get-ChildItem -Path $mastersFolder -Recurse
+    $total = $items.Count
+    $i = 0
+    foreach ($item in $items) {
+        $i++
+        $percent = ($i / $total) * 100
+        Write-Progress -Activity "Deleting old $mastersFolder folder..." `
+                       -Status "Removing: $($item.FullName)" `
+                       -PercentComplete $percent
+        Remove-Item -Path $item.FullName -Force -Recurse -ErrorAction SilentlyContinue
+    }    
 }
 mkdir $mastersFolder
 cd $mastersFolder
