@@ -66,10 +66,10 @@ Write-Host ""
 # Check if wget is installed otherwise it install it
 $wgetPkg = winget list --id JernejSimoncic.Wget --exact | Select-String "JernejSimoncic.Wget"
 if ($wgetPkg)  {
-    Write-Host "WGET dependency already installed" -ForegroundColor Green
+    Write-Host "wget dependency already installed" -ForegroundColor Green
     winget list --id JernejSimoncic.Wget
 } else {
-    Write-Host "Installing WGET dependency..." -ForegroundColor Green
+    Write-Host "Installing wget dependency..." -ForegroundColor Green
     winget install JernejSimoncic.Wget
 }
 Write-Host ""
@@ -88,9 +88,9 @@ $mastersFolder = "C:\MASTERs\26021_RTOS5"
 Write-Host "Create $mastersFolder folder..." -ForegroundColor Green
 if (Test-Path $mastersFolder) {
     Write-Host "Deleting old $mastersFolder folder, please wait..."
-    Remove-Item -Recurse -Force $mastersFolder
+    Remove-Item -Force -Recurse $mastersFolder
 }
-mkdir $mastersFolder
+mkdir $mastersFolder 
 cd $mastersFolder
 Write-Host ""
 # Create the Python Environmet and activate it
@@ -126,7 +126,7 @@ $sdkFolder = "$home\zephyr-sdk-0.17.4"
 if (Test-Path $sdkFolder) {
     Write-Host "Zephyr SDK 0.17.4 already installed in $sdkFolder" -ForegroundColor Green
 } else {
-    Write-Host "Do you want to install Zephyr SDK 0.17.4 in the $home folder? [Y/N]" -ForegroundColor Green -NoNewLine
+    Write-Host "Do you want to install Zephyr SDK 0.17.4 in the $home folder? [y/N]" -ForegroundColor Green -NoNewLine
     $sdk = Read-Host
     if ($sdk -eq "Y" -or $sdk -eq "y") {
         Write-Host ""
@@ -142,17 +142,17 @@ if (Test-Path $sdkFolder) {
 }
 Write-Host ""
 # Ask if you want to copy the C:\MASTERs\26021_RTOS5 folder to C:\Backup
-Write-Host "Do you want to copy the installation on C:\Backup folder? [Y/N]" -ForegroundColor Green -NoNewLine
-$backup = Read-Host 
+Write-Host "Do you want to copy the installation on C:\Backup folder? [y/N]" -ForegroundColor Green -NoNewLine
+$backup = Read-Host
 if ($backup -eq "Y" -or $backup -eq "y") {
     Write-Host ""
     Write-Host "Copying installation on C:\Backup folder..." -ForegroundColor Green
     $backupFolder = "C:\Backup\26021_RTOS5"
     if (Test-Path $backupFolder) {
         Write-Host "Deleting old $backupFolder folder, please wait..."
-        Remove-Item -Recurse -Force $backupFolder
+        Remove-Item -Force -Recurse $backupFolder 
     }
-    robocopy $mastersFolder $backupFolder /E /Z /MT:8
+    robocopy $mastersFolder $backupFolder /E /Z /MT:32
 }
 Write-Host ""
 # Installation completed
