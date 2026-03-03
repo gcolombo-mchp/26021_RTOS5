@@ -88,15 +88,7 @@ $mastersFolder = "C:\MASTERs\26021_RTOS5"
 Write-Host "Create $mastersFolder folder..." -ForegroundColor Green
 if (Test-Path $mastersFolder) {
     Write-Host "Deleting old $mastersFolder folder..."
-    $items = Get-ChildItem -Path $mastersFolder -Recurse
-    $total = $items.Count
-    for ($i = 0; $i -lt $total; $i++) {
-        if ($i % 100 -eq 0) {
-            $percent = ($i / $total) * 100
-            Write-Progress -Activity "Removing $mastersFolder..." -PercentComplete $percent
-        }
-        $items[$i].Delete()
-    }
+    Remove-Item -Recurse -Force $mastersFolder
 }
 mkdir $mastersFolder
 cd $mastersFolder
@@ -158,15 +150,7 @@ if ($backup -eq "Y" -or $backup -eq "y") {
     $backupFolder = "C:\Backup\26021_RTOS5"
     if (Test-Path $backupFolder) {
         Write-Host "Deleting old $backupFolder folder..."
-        $items = Get-ChildItem -Path $backupFolder -Recurse
-        $total = $items.Count
-        for ($i = 0; $i -lt $total; $i++) {
-            if ($i % 100 -eq 0) {
-                $percent = ($i / $total) * 100
-                Write-Progress -Activity "Removing $backupFolder..." -PercentComplete $percent
-            }
-            $items[$i].Delete()
-        }
+        Remove-Item -Recurse -Force $backupFolder
     }
     robocopy $mastersFolder $backupFolder /E /Z /MT:8
 }
