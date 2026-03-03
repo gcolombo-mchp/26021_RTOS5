@@ -87,7 +87,7 @@ Write-Host ""
 $mastersFolder = "C:\MASTERs\26021_RTOS5"
 Write-Host "Create $mastersFolder folder..." -ForegroundColor Green
 if (Test-Path $mastersFolder) {
-    Write-Host "Deleting old $mastersFolder folder..."
+    Write-Host "Deleting old $mastersFolder folder, please wait..."
     Remove-Item -Recurse -Force $mastersFolder
 }
 mkdir $mastersFolder
@@ -149,7 +149,7 @@ if ($backup -eq "Y" -or $backup -eq "y") {
     Write-Host "Copying installation on C:\Backup folder..." -ForegroundColor Green
     $backupFolder = "C:\Backup\26021_RTOS5"
     if (Test-Path $backupFolder) {
-        Write-Host "Deleting old $backupFolder folder..."
+        Write-Host "Deleting old $backupFolder folder, please wait..."
         Remove-Item -Recurse -Force $backupFolder
     }
     robocopy $mastersFolder $backupFolder /E /Z /MT:8
