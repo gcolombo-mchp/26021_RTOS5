@@ -88,17 +88,15 @@ $mastersFolder = "C:\MASTERs\26021_RTOS5"
 Write-Host "Create $mastersFolder folder..." -ForegroundColor Green
 if (Test-Path $mastersFolder) {
     Write-Host "Deleting old $mastersFolder folder..."
-    $items = Get-ChildItem -Path $mastersFolder -Recurse
-    $total = $items.Count
+
+    $subFolders = Get-ChildItem -Path $mastersFolder -Directory
+    $total = $subFolders.Count
     $i = 0
-    foreach ($item in $items) {
+    foreach ($folder in $subFolders) {
         $i++
-        $percent = ($i / $total) * 100
-        Write-Progress -Activity "Deleting old $mastersFolder folder..." `
-                       -Status "Removing: $($item.FullName)" `
-                       -PercentComplete $percent
-        Remove-Item -Path $item.FullName -Force -Recurse -ErrorAction SilentlyContinue
-    }    
+        Write-Progress -Activity "Removing..." -Status $folder.Name -PercentComplete (($i/$total)*100)
+        [System.IO.Directory]::Delete($folder.FullName, $true)
+    }
 }
 mkdir $mastersFolder
 cd $mastersFolder
