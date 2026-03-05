@@ -1,6 +1,7 @@
 #Script to install 26021_RTOS5 class on a Windows PC
 Write-Host "Installing 26021_RTOS5 MASTERs Class" -ForegroundColor Green
 Write-Host ""
+$currentDir = Get-Location
 Write-Host "Checking for Zephyr dependency" -ForegroundColor Green
 Write-Host "" 
 # Check if CMake is installed otherwise it install it
@@ -87,7 +88,7 @@ Write-Host ""
 $mastersFolder = "C:\MASTERs\26021_RTOS5"
 Write-Host "Create $mastersFolder folder..." -ForegroundColor Green
 if (Test-Path $mastersFolder) {
-    Write-Host "Deleting old $mastersFolder folder, please wait..."
+    Write-Host "Deleting old $mastersFolder folder. It can take up to 3 minutes, please wait..."
     Remove-Item -Force -Recurse $mastersFolder
 }
 mkdir $mastersFolder 
@@ -114,12 +115,14 @@ Write-Host "Install Python packages..." -ForegroundColor Green
 python -m pip install @((west packages pip) -split ' ')
 Write-Host ""
 # Clone the labs file from github and delete the Scripts folder that contain this file
+deactivate
 Write-Host "Clone Labs files..." -ForegroundColor Green
 git init
 git remote add origin https://github.com/gcolombo-mchp/26021_RTOS5.git
 git fetch
 git checkout -b main origin/main
 Remove-Item -Recurse -Force ".\Scripts"
+Move-Item -Path ".\26021_RTOS5_LabManual.pdf" -Destination "..\"
 Write-Host ""
 # Check if Zephyr SDK v0.17.4 is installed in the <HomeFolder>; if not it ask if you want install it
 $sdkFolder = "$home\zephyr-sdk-0.17.4"
@@ -137,6 +140,8 @@ if (Test-Path $sdkFolder) {
         cd zephyr-sdk-0.17.4
         & cmd.exe /c setup.cmd
         [System.Environment]::SetEnvironmentVariable("ZEPHYR_SDK_INSTALL_DIR", "$home\zephyr-sdk-0.17.4", "User")
+        cd $home
+        Remove-Item -Force ".\zephyr-sdk-0.17.4_windows-x86_64.7z"
         cd $mastersFolder
     }
 }
@@ -149,11 +154,20 @@ if ($backup -eq "Y" -or $backup -eq "y") {
     Write-Host "Copying installation on C:\Backup folder..." -ForegroundColor Green
     $backupFolder = "C:\Backup\26021_RTOS5"
     if (Test-Path $backupFolder) {
-        Write-Host "Deleting old $backupFolder folder, please wait..."
+        Write-Host "Deleting old $backupFolder folder. It can take up to 3 minutes, please wait..."
         Remove-Item -Force -Recurse $backupFolder 
     }
     robocopy $mastersFolder $backupFolder /E /Z /MT:32
 }
+#Check if Zephyr OS has been installed
 Write-Host ""
-# Installation completed
-Write-Host "Installation Complete!" -ForegroundColor Green
+$zephyrFolders = "C:\MASTERs\26021_RTOS5\zephyrproject\zephyr", "C:\MASTERs\26021_RTOS5\zephyrproject\bootloader", "C:\MASTERs\26021_RTOS5\zephyrproject\modules", "C:\MASTERs\26021_RTOS5\zephyrproject\tools", "C:\MASTERs\26021_RTOS5\zephyrproject\App", "C:\MASTERs\26021_RTOS5\zephyrproject\Solutions", "C:\MASTERs\26021_RTOS5\zephyrproject\.vscode", $sdkFolder
+if ((Test-Path $zephyrFolders) -notcontains $false) {
+    # Installation completed
+    Write-Host "Installation Complete!" -ForegroundColor Green
+} else {
+    # Something went wrong
+    Write-Host "Installation not Complete!" -ForegroundColor Green
+    Write-Host "PLEASE RUN THE SCRIPT AGAIN!" -ForegroundColor Red
+}
+cd $currentDir
