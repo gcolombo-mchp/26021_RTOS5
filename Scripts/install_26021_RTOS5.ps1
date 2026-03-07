@@ -1,4 +1,10 @@
 #Script to install 26021_RTOS5 class on a Windows PC
+
+function Refresh-Env {
+    $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine")+";"+[System.Environment]::GetEnvironmentVariable("Path", "User")
+    Write-Host ""
+}
+
 Write-Host "Installing 26021_RTOS5 MASTERs Class" -ForegroundColor Green
 Write-Host ""
 $currentDir = Get-Location
@@ -12,6 +18,13 @@ if ($cmakePkg)  {
 } else {
     Write-Host "Installing CMake dependency..." -ForegroundColor Green
     winget install Kitware.CMake
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "CMake installation failed! PLEASE RUN THE SCRIPT AGAIN!"
+        exit $LASTEXITCODE
+    }
+    Refresh-Env    
+    Write-Host "CMake installed!" -ForegroundColor Green
+    cmake.exe --version
 }
 Write-Host ""
 # Check if Ninja is installed otherwise it install it
@@ -22,6 +35,13 @@ if ($ninjaPkg)  {
 } else {
     Write-Host "Installing Ninja dependency..." -ForegroundColor Green
     winget install Ninja-build.Ninja
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "Ninja installation failed! PLEASE RUN THE SCRIPT AGAIN!"
+        exit $LASTEXITCODE
+    }
+    Refresh-Env
+    Write-Host "Ninja installed!" -ForegroundColor Green
+    ninja --version
 }
 Write-Host ""
 # Check if gperf is installed otherwise it install it
@@ -32,6 +52,13 @@ if ($gperfPkg)  {
 } else {
     Write-Host "Installing gperf dependency..." -ForegroundColor Green
     winget install oss-winget.gperf
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "gperf installation failed! PLEASE RUN THE SCRIPT AGAIN!"
+        exit $LASTEXITCODE
+    }
+    Refresh-Env
+    Write-Host "gperf installed!" -ForegroundColor Green
+    gperf --version
 }
 Write-Host ""
 # Check if Python v3.12 is installed otherwise it install it
@@ -42,6 +69,13 @@ if ($pythonPkg)  {
 } else {
     Write-Host "Installing Python dependency..." -ForegroundColor Green
     winget install Python.Python.3.12
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "Python installation failed! PLEASE RUN THE SCRIPT AGAIN!"
+        exit $LASTEXITCODE
+    }
+    Refresh-Env
+    Write-Host "Python installed!" -ForegroundColor Green
+    python --version
 }
 Write-Host ""
 # Check if Git is installed otherwise it install it
@@ -52,6 +86,13 @@ if ($gitPkg)  {
 } else {
     Write-Host "Installing Git dependency..." -ForegroundColor Green
     winget install Git.Git
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "Git installation failed! PLEASE RUN THE SCRIPT AGAIN!"
+        exit $LASTEXITCODE
+    }
+    Refresh-Env
+    Write-Host "Git installed!" -ForegroundColor Green
+    git --version
 }
 Write-Host ""
 # Check if Device Tree Compiler is installed otherwise it install it
@@ -62,6 +103,13 @@ if ($dtcPkg)  {
 } else {
     Write-Host "Installing DTC dependency..." -ForegroundColor Green
     winget install oss-winget.dtc
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "DTC installation failed! PLEASE RUN THE SCRIPT AGAIN!"
+        exit $LASTEXITCODE
+    }
+    Refresh-Env
+    Write-Host "DTC installed!" -ForegroundColor Green
+    dtc --version
 }
 Write-Host ""
 # Check if wget is installed otherwise it install it
@@ -72,16 +120,32 @@ if ($wgetPkg)  {
 } else {
     Write-Host "Installing wget dependency..." -ForegroundColor Green
     winget install JernejSimoncic.Wget
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "wget installation failed! PLEASE RUN THE SCRIPT AGAIN!"
+        exit $LASTEXITCODE
+    }
+    Refresh-Env
+    Write-Host "wget installed!" -ForegroundColor Green
+    winget list --id JernejSimoncic.Wget
 }
 Write-Host ""
-# Check if 7zip is installed otherwise it install it
+# Check if 7-Zip is installed otherwise it install it
 $7zipPkg = winget list --id 7zip.7zip --exact | Select-String "7zip.7zip"
 if ($7zipPkg)  {
-    Write-Host "7zip dependency already installed" -ForegroundColor Green
+    Write-Host "7-Zip dependency already installed" -ForegroundColor Green
     (7z | Select-String "7-Zip").ToString().Split(' ')[1]
 } else {
-    Write-Host "Installing 7zip dependency..." -ForegroundColor Green
+    Write-Host "Installing 7-Zip dependency..." -ForegroundColor Green
     winget install 7zip.7zip
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "7-Zip installation failed! PLEASE RUN THE SCRIPT AGAIN!"
+        exit $LASTEXITCODE
+    }
+    $env:Path += ";C:\Program Files\7-Zip"
+    [System.Environment]::SetEnvironmentVariable("Path", $env:Path, "User")
+    Refresh-Env
+    Write-Host "7-Zip installed!" -ForegroundColor Green
+    (7z | Select-String "7-Zip").ToString().Split(' ')[1]
 }
 Write-Host ""
 # Check if C:\MASTERs\26021_RTOS5 is exist and if it exists, it deletes it, creating an empty one
@@ -97,22 +161,45 @@ Write-Host ""
 # Create the Python Environmet and activate it
 Write-Host "Create the virtual environment and activate it..." -ForegroundColor Green
 python -m venv zephyrproject\.venv
+if ($LASTEXITCODE -ne 0) {
+    Write-Error "Virtual Environment setup failed! PLEASE RUN THE SCRIPT AGAIN!"
+    exit $LASTEXITCODE
+}
 .\zephyrproject\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
 Write-Host ""
 # Install West
 Write-Host "Install West..." -ForegroundColor Green
 pip install west
+if ($LASTEXITCODE -ne 0) {
+    Write-Error "west installation failed! PLEASE RUN THE SCRIPT AGAIN!"
+    exit $LASTEXITCODE
+}
 Write-Host ""
 # Install Zephyr OS v4.3.0
 Write-Host "Install Zephyr v4.3.0 in zephyrproject folder..." -ForegroundColor Green
 west init --mr v4.3.0 zephyrproject
+if ($LASTEXITCODE -ne 0) {
+    deactivate
+    Write-Error "west init failed! PLEASE RUN THE SCRIPT AGAIN!"
+    exit $LASTEXITCODE
+}
 cd zephyrproject
 west update
+if ($LASTEXITCODE -ne 0) {
+    deactivate
+    Write-Error "west update failed! PLEASE RUN THE SCRIPT AGAIN!"
+    exit $LASTEXITCODE
+}
 west zephyr-export
 Write-Host ""
 # Install Python Packages
 Write-Host "Install Python packages..." -ForegroundColor Green
 python -m pip install @((west packages pip) -split ' ')
+if ($LASTEXITCODE -ne 0) {
+    Write-Error "Python packages installation failed! PLEASE RUN THE SCRIPT AGAIN!"
+    exit $LASTEXITCODE
+}
 Write-Host ""
 # Clone the labs file from github and delete the Scripts folder that contain this file
 deactivate
@@ -161,13 +248,6 @@ if ($backup -eq "Y" -or $backup -eq "y") {
 }
 #Check if Zephyr OS has been installed
 Write-Host ""
-$zephyrFolders = "C:\MASTERs\26021_RTOS5\zephyrproject\zephyr", "C:\MASTERs\26021_RTOS5\zephyrproject\bootloader", "C:\MASTERs\26021_RTOS5\zephyrproject\modules", "C:\MASTERs\26021_RTOS5\zephyrproject\tools", "C:\MASTERs\26021_RTOS5\zephyrproject\App", "C:\MASTERs\26021_RTOS5\zephyrproject\Solutions", "C:\MASTERs\26021_RTOS5\zephyrproject\.vscode", $sdkFolder
-if ((Test-Path $zephyrFolders) -notcontains $false) {
-    # Installation completed
-    Write-Host "Installation Complete!" -ForegroundColor Green
-} else {
-    # Something went wrong
-    Write-Host "Installation not Complete!" -ForegroundColor Green
-    Write-Host "PLEASE RUN THE SCRIPT AGAIN!" -ForegroundColor Red
-}
+# Installation completed
+Write-Host "Installation Complete!" -ForegroundColor Green
 cd $currentDir
