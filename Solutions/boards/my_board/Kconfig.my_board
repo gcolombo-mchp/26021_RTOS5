@@ -1,0 +1,2 @@
+config BOARD_MY_BOARD
+	select SOC_SAME54P20A

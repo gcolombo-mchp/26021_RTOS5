@@ -1,0 +1,1 @@
+powershell -ExecutionPolicy Bypass -Command "robocopy 'C:\Backup\26021_RTOS5' 'C:\MASTERs\26021_RTOS5' /E /IS /IT /NP"

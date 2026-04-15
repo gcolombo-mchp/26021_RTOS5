@@ -1,0 +1,21 @@
+// / {
+// 	chosen {
+// 		zephyr,console = &cdc_acm_uart;
+// 	};
+// };
+
+&zephyr_udc0 {
+	// cdc_acm_uart: cdc_acm_uart {
+	// 	compatible = "zephyr,cdc-acm-uart";
+	// 	label = "Zephyr USB CDC-ACM";
+	// };
+
+	hid0: hid0 {
+		compatible = "zephyr,hid-device";
+		protocol-code = "none";
+		in-report-size = <64>;
+		out-report-size = <64>;
+		in-polling-period-us = <1000>;
+		out-polling-period-us = <1000>;
+	};
+};
