@@ -37,7 +37,7 @@ If the script fails, you can install the missing packages manually, opening a Wi
   winget install Microsoft.VisualStudioCode
   ```
 
-  > [!IMPORTANT]
+  > **IMPORTANT:**
   > You will need to create a profile with the following Extensions installed:
   > - Python
   > - C/C++ Extension Pack
