@@ -35,6 +35,15 @@ If the script fails, you can install the missing packages manually, opening a Wi
 
   ```powershell
   winget install Microsoft.VisualStudioCode
+  ```
+
+  > **IMPORTANT** You will need to create a profile with the following Extensions installed:
+  >
+  > - Python
+  > - C/C++ Extension Pack
+  > - Serial Monitor
+  > - Cortex-Debug
+  > - MPLAB AI Coding Assistant
 
 - **Python v3.12:**
 
