@@ -278,6 +278,7 @@ if (!(Test-Path "C:\Backup")) {
 }
 Move-Item -Path ".\Scripts\Restore_26021_RTOS5.bat" -Destination "C:\Backup\" -Force
 Move-Item -Path ".\Scripts\Copy_Blinky_Sample.bat" -Destination $mastersFolder
+Move-Item -Path ".\Scripts\Copy_Lab1_Files.bat" -Destination $mastersFolder
 Move-Item -Path ".\Scripts\Copy_Lab1_Solution.bat" -Destination $mastersFolder
 Move-Item -Path ".\Scripts\Copy_Lab2_Solution.bat" -Destination $mastersFolder
 Move-Item -Path ".\Scripts\Copy_Lab3_Solution.bat" -Destination $mastersFolder

@@ -1,0 +1,102 @@
+/dts-v1/;
+#include <atmel/same5xx20.dtsi>
+#include <zephyr/dt-bindings/input/input-event-codes.h>
+#include <dt-bindings/pinctrl/same54p-pinctrl.h>
+
+/ {
+	model = "my_board";
+	compatible = "atmel,same54p20a", "atmel,same54";
+
+	chosen {
+		zephyr,console = &sercom2;
+		zephyr,shell-uart = &sercom2;
+		zephyr,sram = &sram0;
+		zephyr,flash = &flash0;
+	};
+
+	/* These aliases are provided for compatibility with samples */
+	aliases {
+		led0 = &led0;
+		sw0 = &button0;
+		vbus0 = &vbus0;
+	};
+
+	leds {
+		compatible = "gpio-leds";
+
+		/* add led0 here */
+
+	};
+
+	buttons {
+		compatible = "gpio-keys";
+
+		/* add button0 here */
+
+		vbus0: vbus_0 {
+			gpios = <&portc 0 GPIO_ACTIVE_HIGH>;
+			label = "VBUS";
+			zephyr,code = <INPUT_KEY_1>;
+		};
+    };
+};
+
+&pinctrl {
+
+	sercom2_uart_default: sercom2_uart_default {
+		group1 {
+			pinmux = <PB25D_SERCOM2_PAD0>,
+				 <PB24D_SERCOM2_PAD1>;
+		};
+	};
+
+	usb_dc_default: usb_dc_default {
+		group1 {
+			pinmux = <PA25H_USB_DP>,
+				 <PA24H_USB_DM>;
+		};
+	};
+
+};
+
+&cpu0 {
+	clock-frequency = <120000000>;
+};
+
+&sercom2 {
+	status = "disabled";
+	compatible = "atmel,sam0-uart";
+	current-speed = <115200>;
+	rxpo = <1>;
+	txpo = <0>;
+	#address-cells = <1>;
+	#size-cells = <0>;
+
+	pinctrl-0 = <&sercom2_uart_default>;
+	pinctrl-names = "default";
+};
+
+zephyr_udc0: &usb0 {
+	status = "disabled";
+
+	pinctrl-0 = <&usb_dc_default>;
+	pinctrl-names = "default";
+};
+
+&flash0 {
+	partitions {
+		compatible = "fixed-partitions";
+		#address-cells = <1>;
+		#size-cells = <1>;
+
+		/*
+		 * The final 16 KiB is reserved for the application.
+		 * Storage partition will be used by FCB/LittleFS/NVS
+		 * if enabled.
+		 */
+		storage_partition: partition@fc000 {
+			label = "storage";
+			reg = <0x000fc000 0x00004000>;
+		};
+	};
+};
