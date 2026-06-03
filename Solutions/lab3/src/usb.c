@@ -31,8 +31,8 @@ void usb_msg_callback(struct usbd_context *const ctx, const struct usbd_msg *con
 bool managed_vbus;
 int init_usb_device(void)
 {
-
     int err = 0;
+
     err = usbd_add_descriptor(&usbd_ctx, &lang_desc);
     if (err) {
         return err;
@@ -71,8 +71,8 @@ int init_usb_device(void)
     }
 
     managed_vbus = usbd_can_detect_vbus(&usbd_ctx);
-    return err;
 
+    return err;
 }
 
 void manage_usb_device(bool connected)
