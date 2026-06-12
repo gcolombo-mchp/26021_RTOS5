@@ -14,12 +14,12 @@ if ($vscodePkg)  {
     }
     catch {
         Write-Host "code.cmd --version failed"
-        Write-Host "PLEASE RUN Install_Required_Software_26021_RTOS5.ps1 IN A POWERSHELL WINDOW AS ADMINISTRATOR..." -ForegroundColor Red
+        Write-Host "PLEASE Install Visual Studio Code..." -ForegroundColor Red
         exit
     }
 } else {
     Write-Host "Visual Studio Code not installed"
-    Write-Host "PLEASE RUN Install_Required_Software_26021_RTOS5.ps1 IN A POWERSHELL WINDOW AS ADMINISTRATOR..." -ForegroundColor Red
+    Write-Host "PLEASE Install Visual Studio Code..." -ForegroundColor Red
     exit
 }
 Write-Host ""
@@ -32,12 +32,12 @@ if ($cmakePkg)  {
     }
     catch {
         Write-Host "cmake --version failed"
-        Write-Host "PLEASE RUN Install_Required_Software_26021_RTOS5.ps1 IN A POWERSHELL WINDOW AS ADMINISTRATOR..." -ForegroundColor Red
+        Write-Host "PLEASE Install CMake..." -ForegroundColor Red
         exit
     }
 } else {
     Write-Host "CMake dependency not installed"
-    Write-Host "PLEASE RUN Install_Required_Software_26021_RTOS5.ps1 IN A POWERSHELL WINDOW AS ADMINISTRATOR..." -ForegroundColor Red
+    Write-Host "PLEASE Install CMake..." -ForegroundColor Red
     exit
 }
 Write-Host ""
@@ -51,12 +51,12 @@ if ($ninjaPkg)  {
     }
     catch {
         Write-Host "ninja --version failed"
-        Write-Host "PLEASE RUN Install_Required_Software_26021_RTOS5.ps1 IN A POWERSHELL WINDOW AS ADMINISTRATOR..." -ForegroundColor Red
+        Write-Host "PLEASE Install Ninja..." -ForegroundColor Red
         exit
     }
 } else {
     Write-Host "Ninja dependency not installed"
-    Write-Host "PLEASE RUN Install_Required_Software_26021_RTOS5.ps1 IN A POWERSHELL WINDOW AS ADMINISTRATOR..." -ForegroundColor Red
+    Write-Host "PLEASE Install Ninja..." -ForegroundColor Red
     exit
 }
 Write-Host ""
@@ -69,12 +69,12 @@ if ($gperfPkg)  {
     }
     catch {
         Write-Host "gperf --version failed"
-        Write-Host "PLEASE RUN Install_Required_Software_26021_RTOS5.ps1 IN A POWERSHELL WINDOW AS ADMINISTRATOR..." -ForegroundColor Red
+        Write-Host "PLEASE Install gperf..." -ForegroundColor Red
         exit
     }
 } else {
     Write-Host "gperf dependency not installed"
-    Write-Host "PLEASE RUN Install_Required_Software_26021_RTOS5.ps1 IN A POWERSHELL WINDOW AS ADMINISTRATOR..." -ForegroundColor Red
+    Write-Host "PLEASE Install gperf..." -ForegroundColor Red
     exit
 }
 Write-Host ""
@@ -92,12 +92,12 @@ if ($pythonPkg)  {
     }
     catch {
         Write-Host "Python --version failed"
-        Write-Host "PLEASE RUN Install_Required_Software_26021_RTOS5.ps1 IN A POWERSHELL WINDOW AS ADMINISTRATOR..." -ForegroundColor Red
+        Write-Host "PLEASE Install Python..." -ForegroundColor Red
         exit
     }
 } else {
     Write-Host "Python dependency not installed"
-    Write-Host "PLEASE RUN Install_Required_Software_26021_RTOS5.ps1 IN A POWERSHELL WINDOW AS ADMINISTRATOR..." -ForegroundColor Red
+    Write-Host "PLEASE Install Python..." -ForegroundColor Red
     exit
 }
 Write-Host ""
@@ -110,12 +110,12 @@ if ($gitPkg)  {
     }
     catch {
         Write-Host "git --version failed"
-        Write-Host "PLEASE RUN Install_Required_Software_26021_RTOS5.ps1 IN A POWERSHELL WINDOW AS ADMINISTRATOR..." -ForegroundColor Red
+        Write-Host "PLEASE Install Git..." -ForegroundColor Red
         exit
     }
 } else {
     Write-Host "Git dependency not installed"
-    Write-Host "PLEASE RUN Install_Required_Software_26021_RTOS5.ps1 IN A POWERSHELL WINDOW AS ADMINISTRATOR..." -ForegroundColor Red
+    Write-Host "PLEASE Install Git..." -ForegroundColor Red
     exit
 }
 Write-Host ""
@@ -128,12 +128,12 @@ if ($dtcPkg)  {
     }
     catch {
         Write-Host "dtc --version failed"
-        Write-Host "PLEASE RUN Install_Required_Software_26021_RTOS5.ps1 IN A POWERSHELL WINDOW AS ADMINISTRATOR..." -ForegroundColor Red
+        Write-Host "PLEASE Install Device Tree Compiler..." -ForegroundColor Red
         exit
     }
 } else {
     Write-Host "DTC dependency not installed"
-    Write-Host "PLEASE RUN Install_Required_Software_26021_RTOS5.ps1 IN A POWERSHELL WINDOW AS ADMINISTRATOR..." -ForegroundColor Red
+    Write-Host "PLEASE Install Device Tree Compiler..." -ForegroundColor Red
     exit
 }
 Write-Host ""
@@ -146,12 +146,12 @@ if ($wgetPkg)  {
     }
     catch {
         Write-Host "wget check failed"
-        Write-Host "PLEASE RUN Install_Required_Software_26021_RTOS5.ps1 IN A POWERSHELL WINDOW AS ADMINISTRATOR..." -ForegroundColor Red
+        Write-Host "PLEASE Install wget..." -ForegroundColor Red
         exit
     }
 } else {
     Write-Host "wget dependency not installed"
-    Write-Host "PLEASE RUN Install_Required_Software_26021_RTOS5.ps1 IN A POWERSHELL WINDOW AS ADMINISTRATOR..." -ForegroundColor Red
+    Write-Host "PLEASE Install wget..." -ForegroundColor Red
     exit
 }
 Write-Host ""
@@ -165,12 +165,12 @@ if ($7zipPkg)  {
     }
     catch {
         Write-Host "7-Zip check failed"
-        Write-Host "PLEASE RUN Install_Required_Software_26021_RTOS5.ps1 IN A POWERSHELL WINDOW AS ADMINISTRATOR..." -ForegroundColor Red
+        Write-Host "PLEASE Install 7-Zip..." -ForegroundColor Red
         exit
     }
 } else {
     Write-Host "7-Zip dependency not installed"
-    Write-Host "PLEASE RUN Install_Required_Software_26021_RTOS5.ps1 IN A POWERSHELL WINDOW AS ADMINISTRATOR..." -ForegroundColor Red
+    Write-Host "PLEASE Install 7-Zip..." -ForegroundColor Red
     exit
 }
 Write-Host ""
@@ -183,12 +183,12 @@ if ($openocdPkg) {
     }
     catch {
         Write-Host "openocd --version failed"
-        Write-Host "PLEASE RUN Install_Required_Software_26021_RTOS5.ps1 IN A POWERSHELL WINDOW AS ADMINISTRATOR..." -ForegroundColor Red
+        Write-Host "PLEASE Install openOCD..." -ForegroundColor Red
         exit
     }
 } else {
     Write-Host "OpenOCD dependency not installed"
-    Write-Host "PLEASE RUN Install_Required_Software_26021_RTOS5.ps1 IN A POWERSHELL WINDOW AS ADMINISTRATOR..." -ForegroundColor Red
+    Write-Host "PLEASE Install openOCD..." -ForegroundColor Red
     exit
 }
 Write-Host ""
@@ -198,7 +198,7 @@ if (Test-Path $sdkFolder) {
     Write-Host "Zephyr SDK 0.17.4 already installed in $sdkFolder" -ForegroundColor Green
 } else {
     Write-Host "Zephyr SDK 0.17.4 not installed in $sdkFolder"
-    Write-Host "PLEASE RUN Install_Required_Software_26021_RTOS5.ps1 IN A POWERSHELL WINDOW AS ADMINISTRATOR..." -ForegroundColor Red
+    Write-Host "PLEASE Install Zephyr SDK 0.17.4..." -ForegroundColor Red
     exit
 }
 Write-Host ""
@@ -273,10 +273,7 @@ git init
 git remote add origin https://github.com/gcolombo-mchp/26021_RTOS5.git
 git fetch
 git checkout -b main origin/main
-if (!(Test-Path "C:\Backup")) {
-    mkdir C:\Backup
-}
-Move-Item -Path ".\Scripts\Restore_26021_RTOS5.bat" -Destination "C:\Backup\" -Force
+Move-Item -Path ".\Scripts\Restore_26021_RTOS5.bat" -Destination $mastersFolder
 Move-Item -Path ".\Scripts\Copy_Blinky_Sample.bat" -Destination $mastersFolder
 Move-Item -Path ".\Scripts\Copy_Lab1_Files.bat" -Destination $mastersFolder
 Move-Item -Path ".\Scripts\Copy_Lab1_Solution.bat" -Destination $mastersFolder
@@ -297,6 +294,10 @@ if ($backup -eq "Y" -or $backup -eq "y") {
         Remove-Item -Force -Recurse $backupFolder 
     }
     robocopy $mastersFolder $backupFolder /E /Z /MT:32
+    Move-Item -Path "$mastersFolder\Restore_26021_RTOS5.bat" -Destination $backupFolder
+}
+else {
+    Remove-Item -Force "$mastersFolder\Restore_26021_RTOS5.bat"
 }
 Write-Host ""
 # Installation completed

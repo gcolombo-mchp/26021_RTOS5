@@ -22,14 +22,8 @@ If the process ends because a required software is missing, you can use the foll
 
 ## Required Software Setup
 
-You can install the required software downloading the installation files from their website, or you can run a script that has been crated to check if a required software is missing and install it.  
-Open a Windows PowerShell with administrator rights (right click on its icon and select "Run as administrator") then execute the following command:
-
-```powershell
-powershell -ExecutionPolicy Bypass -Command "IEX (Invoke-RestMethod 'https://raw.githubusercontent.com/gcolombo-mchp/26021_RTOS5/refs/heads/main/Scripts/Install_Required_Software_26021_RTOS5.ps1')"
-```
-
-If the script fails, you can install the missing packages manually, opening a Windows PowerShell and using **winget** commands:
+You can install the required software downloading the installation files from their website.  
+Open a Windows PowerShell and use **winget** commands to install them:
 
 - **Visual Studio Code:**
 
@@ -38,7 +32,7 @@ If the script fails, you can install the missing packages manually, opening a Wi
   ```
 
   > **IMPORTANT:**
-  > You will need to create a profile with the following Extensions installed:
+  > You will need to create a profile named "**Zephyr**", with the following Extensions installed:
   > - Python
   > - C/C++ Extension Pack
   > - Serial Monitor
