@@ -294,11 +294,8 @@ if ($backup -eq "Y" -or $backup -eq "y") {
         Remove-Item -Force -Recurse $backupFolder 
     }
     robocopy $mastersFolder $backupFolder /E /Z /MT:32
-    Move-Item -Path "$mastersFolder\Restore_26021_RTOS5.bat" -Destination $backupFolder
 }
-else {
-    Remove-Item -Force "$mastersFolder\Restore_26021_RTOS5.bat"
-}
+Remove-Item -Force "$mastersFolder\Restore_26021_RTOS5.bat"
 Write-Host ""
 # Installation completed
 Write-Host "Installation Complete!" -ForegroundColor Green
