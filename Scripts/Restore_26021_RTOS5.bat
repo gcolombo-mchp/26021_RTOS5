@@ -1,1 +1,1 @@
-powershell -ExecutionPolicy Bypass -Command "robocopy 'C:\Backup\26021_RTOS5' 'C:\MASTERs\26021_RTOS5' /E /IS /IT /NP; Remove-Item 'C:\MASTERs\26021_RTOS5\Scripts\Restore_26021_RTOS5.bat' -Force"
+powershell -ExecutionPolicy Bypass -Command "Remove-Item 'C:\MASTERs\26021_RTOS5' -Recurse -Force -ErrorAction SilentlyContinue; robocopy 'C:\Backup\26021_RTOS5' 'C:\MASTERs\26021_RTOS5' /E /IS /IT /NP; Remove-Item 'C:\MASTERs\26021_RTOS5\Scripts\Restore_26021_RTOS5.bat' -Force"
