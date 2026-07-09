@@ -18,7 +18,7 @@ powershell -ExecutionPolicy Bypass -Command "IEX (Invoke-RestMethod 'https://raw
 ```
 
 The script checks if the required software is installed before installing the labs files.  
-If the process ends because a required software is missing, you can use the following section to install it.
+If the process ends because a required software is missing, you can use the following section to install it, then you need to run the command again to install labs files.
 
 ## Required Software Setup
 
