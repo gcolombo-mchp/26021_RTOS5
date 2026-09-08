@@ -47,7 +47,7 @@ Open a Windows PowerShell and use **winget** commands to install them:
 - **CMake:**
 
   ```powershell
-  winget install Kitware.CMake
+  winget install Kitware.CMake --version 4.2.3
 
 - **Ninja:**
 
